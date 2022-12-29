@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>soundtouch.js demo</title>
+    <style type="text/css">
+body {
+    /* margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: ;  */
+    background: #664582;
+    background-image: url("https://images.unsplash.com/photo-1478737270239-2f02b77fc618?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3270&q=80");
+    background-color: transparent;
+    
+}
+
+.glow-on-hover {
+    width: 220px;
+    height: 50px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:active {
+    color: #000
+}
+
+.glow-on-hover:active:after {
+    background: transparent;
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+ .all {
+    margin-left: 40%;
+    margin-top: 10%;
+}
+ }
+
+      /* input,
+      button {
+        display: block;
+      } */
+      .progress,
+      #progressMeter {
+        width: 400px;
+      }
+
+      .progress #duration {
+        position: relative;
+        float: right;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="all">
+    <div class="buttons">
+      <button class="glow-on-hover" type="button">Record</button>
+      <button id="play" disabled>Play</button>
+      <button id="stop">Pause</button>
+    </div>
+    <div class="progress">
+      <div><span id="currentTime">0:00</span><span id="duration"></span></div>
+      <progress id="progressMeter" value="0" max="100"></progress>
+    </div>
+    Rate:
+    <input
+      type="range"
+      autofocus="true"
+      min="0.1"
+      max="4.0"
+      name="tempoSlider"
+      value="1.0"
+      id="tempoSlider"
+      step="0.01"
+      list="temporange"
+    />
+    <datalist id="temporange">
+      <option value="0.1" label="0"></option>
+      <option value="0.5"></option>
+      <option value="1.0"></option>
+      <option value="1.5"></option>
+      <option value="2.0"></option>
+      <option value="2.5"></option>
+      <option value="3.0"></option>
+      <option value="3.5"></option>
+      <option value="4.0" label="4"></option>
+    </datalist>
+
+    <div id="tempo"></div>
+    Pitch:
+    <input
+      type="range"
+      autofocus="true"
+      min="0.1"
+      max="2.0"
+      name="pitchSlider"
+      value="1.0"
+      id="pitchSlider"
+      step="0.01"
+      list="pitchrange"
+    />
+    <datalist id="pitchrange">
+      <option value="0.1" label="0"></option>
+      <option value="0.5"></option>
+      <option value="1.0"></option>
+      <option value="1.5"></option>
+      <option value="2.0" label="2"></option>
+    </datalist>
+
+    <div id="pitch"></div>
+
+    Change Key:
+    <input
+      type="range"
+      autofocus="true"
+      min="-7.0"
+      max="7.0"
+      name="keySlider"
+      value="0"
+      id="keySlider"
+      step="1"
+      list="keyrange"
+    />
+    <datalist id="keyrange">
+      <option value="-7"></option>
+      <option value="-6"></option>
+      <option value="-5"></option>
+      <option value="-4"></option>
+      <option value="-3"></option>
+      <option value="-2"></option>
+      <option value="-1"></option>
+      <option value="0"></option>
+      <option value="1"></option>
+      <option value="2"></option>
+      <option value="3"></option>
+      <option value="4"></option>
+      <option value="5"></option>
+      <option value="6"></option>
+      <option value="7"></option>
+    </datalist>
+
+    <div id="key"></div>
+
+    Volume:
+    <input
+      type="range"
+      autofocus="true"
+      min="0.0"
+      max="10.0"
+      name="volumeSlider"
+      value="1.0"
+      id="volumeSlider"
+      step="0.01"
+      list="volumerange"
+    />
+    <datalist id="volumerange">
+      <option value="0.0" label="0"></option>
+      <option value="0.5"></option>
+      <option value="1.0"></option>
+      <option value="1.5"></option>
+      <option value="2.0" label="2"></option>
+      <option value="2.5"></option>
+      <option value="3.0"></option>
+      <option value="3.5"></option>
+      <option value="4.0" label="4"></option>
+      <option value="4.5"></option>
+      <option value="5.0"></option>
+      <option value="5.5"></option>
+      <option value="6.0" label="6"></option>
+      <option value="6.5"></option>
+      <option value="7.0"></option>
+      <option value="7.5"></option>
+      <option value="8.0" label="8"></option>
+      <option value="8.5"></option>
+      <option value="9.0"></option>
+      <option value="9.5"></option>
+      <option value="10.0" label="10"></option>
+    </datalist>
+
+    <div id="volume"></div>
+  </div>
+  </body>
+  <!-- <script src="soundtouch.js"></script> -->
+  <script type="module" src="example.js"></script>
+</html>
