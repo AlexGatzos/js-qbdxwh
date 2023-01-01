@@ -28,7 +28,7 @@ if (navigator.mediaDevices) {
           record.innerText = 'Stop Recording';
           console.log(mediaRecorder.state);
           console.log('recorder started');
-          record.style.background = 'red';
+          // record.style.background = 'red';
           record.style.color = 'black';
         } else {
           mediaRecorder.stop();
